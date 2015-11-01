@@ -1,8 +1,8 @@
 #!/bin/bash
 ##====================================================
-## This script creates makefiles to simplify the work 
+## This script creates makefiles to simplify the work
 ## with latex documents.
-## 
+##
 ## Parametres:
 ## -$1 (name of main document) includes the name of latex
 ## main document, otherwise 00-main.tex is used.
@@ -29,6 +29,7 @@ main:
 
 clean:
 	rm -f *.log *.lof *.lot *.toc *~ *.aux *.fls *.out \
-	*.bbl *.blg *.synctex.gz *.maf *.mtc *.mtc0 *.snm *.nav *.glo *.glsdefs *.ist
+	*.bbl *.blg *.synctex.gz *.maf *.mtc *.mtc0 *.snm *.nav *.glo *.glsdefs \
+	*.ist *.vrb
 	mv $nameOfFile.pdf $nameOfPdf.pdf
 EOF
