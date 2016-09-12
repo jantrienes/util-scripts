@@ -15,12 +15,13 @@
 ##====================================================
 # Directory which contains the arguments that shall be ignored
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 # Specify resources
-JAVARES=${DIR}/SVNJAVAPROPSET
-TEXRES=${DIR}/SVNTEXPROPSET
-CPPRES=${DIR}/SVNCPPPROPSET
-CSPRES=${DIR}/SVNCSHARPPROPSET
-XCRES=${DIR}/SVNXCPROPSET
+JAVARES=$DIR/SVNJAVAPROPSET
+TEXRES=$DIR/SVNTEXPROPSET
+CPPRES=$DIR/SVNCPPPROPSET
+CSPRES=$DIR/SVNCSHARPPROPSET
+XCRES=$DIR/SVNXCPROPSET
 #specify flags in order to handle command line arguments
 aflag=off
 ignore_set=/dev/null
@@ -39,14 +40,14 @@ do
   shift
 done
 
-cat ${ignore_set} >> tmp.ignore
+cat "$ignore_set" >> tmp.ignore
 
 if [ $aflag = on ];
 then
   svn proplist -v | grep -vE 'ignore|Properties' > current.ignore
   perl -lape 's/\s+//sg' current.ignore > current.ignore.formatted
   cat tmp.ignore >> current.ignore.formatted
-  cat current.ignore.formatted | sort | uniq >> current.ignore.formatted.uniq
+  sort current.ignore.formatted | uniq >> current.ignore.formatted.uniq
   svn propset svn:ignore -F current.ignore.formatted.uniq . --recursive
   rm -f current.ignore.formatted current.ignore.formatted.uniq current.ignore
 else
