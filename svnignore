@@ -12,8 +12,10 @@
 ## [proplist ...]
 ##====================================================
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
 config=$dir/svnignore.d
+
+tmpdir=$(mktemp -d)
+trap 'rm -rf $tmpdir' EXIT
 
 append=false
 ignore_set=/dev/null
@@ -39,17 +41,15 @@ do
   shift
 done
 
-cat $ignore_set >> tmp.ignore
+cat $ignore_set >> $tmpdir/tmp.ignore
 
 if [ "$append" = true ];
 then
-  svn proplist -v | grep -vE 'ignore|Properties' > current.ignore
-  perl -lape 's/\s+//sg' current.ignore > current.ignore.formatted
-  cat tmp.ignore >> current.ignore.formatted
-  sort current.ignore.formatted | uniq >> current.ignore.formatted.uniq
-  svn propset svn:ignore -F current.ignore.formatted.uniq . --recursive
-  rm -f current.ignore.formatted current.ignore.formatted.uniq current.ignore
+  svn proplist -v | grep -vE 'ignore|Properties' > $tmpdir/current.ignore
+  perl -lape 's/\s+//sg' $tmpdir/current.ignore > $tmpdir/current.ignore.formatted
+  cat $tmpdir/tmp.ignore >> $tmpdir/current.ignore.formatted
+  sort $tmpdir/current.ignore.formatted | uniq >> $tmpdir/current.ignore.formatted.uniq
+  svn propset svn:ignore -F $tmpdir/current.ignore.formatted.uniq . --recursive
 else
-  svn propset svn:ignore -F tmp.ignore . --recursive
+  svn propset svn:ignore -F $tmpdir/tmp.ignore . --recursive
 fi
-rm tmp.ignore
