@@ -6,11 +6,11 @@ show="$(defaults read com.apple.finder CreateDesktop)"
 
 if [ "$show" = true ]
 then
-	show=false
-	echo "hide desktop"
+  show=false
+  echo "hide desktop"
 else
-	show=true
-	echo "show desktop"
+  show=true
+  echo "show desktop"
 fi
 
 defaults write com.apple.finder CreateDesktop $show; killall Finder
