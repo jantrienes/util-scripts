@@ -2,9 +2,10 @@
 ##====================================================
 ## Toggles view state of desktop icons.
 ##====================================================
-show="$(defaults read com.apple.finder CreateDesktop)"
+show="$(defaults read com.apple.finder CreateDesktop 2>/dev/null)"
 
-if [ "$show" = true ]
+#$? -eq 1 in case CreateDesktop is not set, yet
+if [ $? -eq 1 ] || [ "$show" = true ]
 then
   show=false
   echo "hide desktop"
