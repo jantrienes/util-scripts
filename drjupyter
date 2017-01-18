@@ -15,7 +15,5 @@ do
   current_port=$((current_port + 1))
 done
 
-
-docker run -e GRANT_SUDO=yes --user root -d -p $current_port:8888 \
-  -v "$(pwd)":/home/jovyan/work jupyter/datascience-notebook \ &&
-  echo "docker jupyter running on http://localhost:$current_port/"
+echo "docker jupyter running on http://localhost:$current_port/"
+docker run -e GRANT_SUDO=yes --user root -d -p $current_port:8888 -v "$(pwd)":/home/jovyan/work jupyter/datascience-notebook
