@@ -20,7 +20,7 @@ if [ -z "$nameOfFile" ];
 then
 	nameOfFile="00-main"
 fi
-cat > makefile << EOF
+cat > Makefile << EOF
 all: main clean
 
 main:
