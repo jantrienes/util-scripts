@@ -3,18 +3,11 @@
 ## Little helper script to start a docker jupyter
 ## instance listening on a free port.
 ##====================================================
-current_port=8888
-while [ 'true' ]
-do
-  nc -z localhost $current_port &> /dev/null
-  if [ $? -eq 1 ]
-  then
-    break
-  fi
+default_port=8888
 
-  current_port=$((current_port + 1))
-done
+. nextfreeport
+nextfreeport $default_port
 
-docker run -e GRANT_SUDO=yes --user root -d -p $current_port:8888 \
+docker run -e GRANT_SUDO=yes --user root -d -p $NEXT_FREE_PORT:$default_port \
   -v "$(pwd)":/home/jovyan/work jupyter/datascience-notebook && \
-  echo "docker jupyter running on http://localhost:$current_port/"
+  echo "docker jupyter running on http://localhost:$NEXT_FREE_PORT/"

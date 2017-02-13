@@ -1,0 +1,23 @@
+#!/bin/bash
+##====================================================
+## Looks for the next free port starting at a specific
+## value.
+##
+## Usage:
+## $nextfreeport [start]
+##====================================================
+nextfreeport() {
+  current_port=$1
+  while true
+  do
+    nc -z localhost "$current_port" &> /dev/null
+    if [ $? -eq 1 ]
+    then
+      break
+    fi
+
+    current_port=$((current_port + 1))
+  done
+
+  export NEXT_FREE_PORT=$current_port
+}
