@@ -17,18 +17,18 @@
 # -rm aliasName # deleted all entries in the in '~/.bash_aliases'
 # -p # printed all aliases
 #######################################
-addAlias()
-{
+addAlias() {
   name=$1
   cmd="alias $name='cd $path'"
-  result=( $(alias | grep "alias $name" | wc -l) )
-  if [ $result = 0 ];
+  result=$(grep -c "alias $name" $bash_aliases)
+  if [ $result -eq 0 ];
   then
     echo "$cmd" >> $bash_aliases
   else
     echo "there is already an alias with the name $name"
   fi;
 }
+
 path=$PWD
 cmd=""
 bash_aliases="${HOME}/.bash_aliases"
@@ -43,8 +43,8 @@ while [ "$1" != "" ]; do
     -rm | --remove)
       shift
       name=$1
-      result=( $(alias | grep "alias $name" | wc -l) )
-      if [ $result != 0 ];
+      result=$(grep -c "alias $name" $bash_aliases)
+      if [ $result -ne 0 ];
       then
         sed '/alias '$name'/d' $bash_aliases > $bash_tmp
         mv $bash_tmp $bash_aliases
@@ -60,7 +60,6 @@ while [ "$1" != "" ]; do
 
   shift
 done
-
 
 sort $bash_aliases -o $bash_aliases
 source /etc/bashrc
