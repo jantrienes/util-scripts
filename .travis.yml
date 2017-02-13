@@ -7,4 +7,4 @@ addons:
     - shellcheck
 
 script:
- - shellcheck $(grep -rl '^#!/.*sh' ./*)
+ - shellcheck -x $(grep -rl '^#!/.*sh' ./*)
