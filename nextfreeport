@@ -8,9 +8,9 @@
 ##====================================================
 nextfreeport() {
   current_port=$1
-  while [ 'true' ]
+  while true
   do
-    nc -z localhost $current_port &> /dev/null
+    nc -z localhost "$current_port" &> /dev/null
     if [ $? -eq 1 ]
     then
       break
