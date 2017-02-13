@@ -1,0 +1,19 @@
+#!/bin/bash
+##====================================================
+## Little helper script to start a docker shiny
+## instance listening on a free port.
+##====================================================
+current_port=3838
+while [ 'true' ]
+do
+  nc -z localhost $current_port &> /dev/null
+  if [ $? -eq 1 ]
+  then
+    break
+  fi
+
+  current_port=$((current_port + 1))
+done
+
+docker run -d -p $current_port:3838  -v "$(pwd)":/srv/shiny-server/  rocker/shiny
+echo "docker shiny running on http://localhost:$current_port/"
