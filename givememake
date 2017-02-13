@@ -26,10 +26,14 @@ all: main clean
 main:
 	pdflatex $nameOfFile.tex
 	pdflatex $nameOfFile.tex
+	mv $nameOfFile.pdf $nameOfPdf.pdf
 
 clean:
 	rm -f *.log *.lof *.lot *.toc *~ *.aux *.fls *.out \
 	*.bbl *.blg *.synctex.gz *.maf *.mtc *.mtc0 *.snm *.nav *.glo *.glsdefs \
-	*.ist *.vrb
-	mv $nameOfFile.pdf $nameOfPdf.pdf
+	*.ist *.vrb *.bcf *.run.xml
+
+cleanall: clean
+	rm -f $nameOfFile.pdf $nameOfPdf.pdf
+
 EOF
