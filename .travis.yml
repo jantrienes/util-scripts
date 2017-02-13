@@ -7,4 +7,4 @@ addons:
     - shellcheck
 
 script:
- - bash -c 'shopt -s globstar; shellcheck -x **/*.{sh,bash}'
+ - shellcheck -x $(grep -rl '^#!/.*sh' ./*)
