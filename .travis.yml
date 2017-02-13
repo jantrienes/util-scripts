@@ -5,3 +5,6 @@ addons:
     - debian-sid    # Grab ShellCheck from the Debian repo
     packages:
     - shellcheck
+
+script:
+ - bash -c 'shopt -s globstar; shellcheck -x **/*.{sh,bash}'
