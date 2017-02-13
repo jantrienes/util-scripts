@@ -19,3 +19,5 @@ main.pdf
 *.ptc
 *.gls
 *.ist
+*.bcf
+*.run.xml
