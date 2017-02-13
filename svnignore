@@ -45,11 +45,9 @@ cat $ignore_set >> $tmpdir/tmp.ignore
 
 if [ "$append" = true ];
 then
-  svn proplist -v | grep -vE 'ignore|Properties' > $tmpdir/current.ignore
-  perl -lape 's/\s+//sg' $tmpdir/current.ignore > $tmpdir/current.ignore.formatted
-  cat $tmpdir/tmp.ignore >> $tmpdir/current.ignore.formatted
-  sort $tmpdir/current.ignore.formatted | uniq >> $tmpdir/current.ignore.formatted.uniq
-  svn propset svn:ignore -F $tmpdir/current.ignore.formatted.uniq . --recursive
-else
-  svn propset svn:ignore -F $tmpdir/tmp.ignore . --recursive
+  svn proplist -v | grep -vE 'ignore|Properties' | perl -lape 's/\s+//sg' > $tmpdir/current.ignore
+  cat $tmpdir/tmp.ignore $tmpdir/current.ignore | sort | uniq > $tmpdir/tmp.ignore.formatted
+  mv $tmpdir/tmp.ignore.formatted $tmpdir/tmp.ignore
 fi
+
+svn propset svn:ignore -F $tmpdir/tmp.ignore . --recursive
