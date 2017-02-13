@@ -63,5 +63,5 @@ while [ "$1" != "" ]; do
 done
 
 sort $bash_aliases -o $bash_aliases
-# shellcheck disable=SC2059
+# shellcheck disable=SC2059,SC1091
 source /etc/bashrc
