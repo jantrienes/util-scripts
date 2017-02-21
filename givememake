@@ -20,6 +20,10 @@ if [ -z "$nameOfFile" ];
 then
 	nameOfFile="00-main"
 fi
+
+cleanupTargets="*.log *.lof *.lot *.toc *~ *.aux *.fls *.out *.bbl *.blg *.synctex.gz *.maf *.mtc \
+.mtc0 *.snm *.nav *.glo *.glsdefs *.ist *.vrb *.bcf *.run.xml"
+
 cat > Makefile << EOF
 all: main clean
 
@@ -29,9 +33,7 @@ main:
 	mv $nameOfFile.pdf $nameOfPdf.pdf
 
 clean:
-	rm -f *.log *.lof *.lot *.toc *~ *.aux *.fls *.out \
-	*.bbl *.blg *.synctex.gz *.maf *.mtc *.mtc0 *.snm *.nav *.glo *.glsdefs \
-	*.ist *.vrb *.bcf *.run.xml
+	rm -f $cleanupTargets
 
 cleanall: clean
 	rm -f $nameOfFile.pdf $nameOfPdf.pdf
