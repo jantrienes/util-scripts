@@ -22,7 +22,7 @@ then
 fi
 
 cleanupTargets="*.log *.lof *.lot *.toc *~ *.aux *.fls *.out *.bbl *.blg *.synctex.gz *.maf *.mtc \
-.mtc0 *.snm *.nav *.glo *.glsdefs *.ist *.vrb *.bcf *.run.xml"
+.mtc0 *.snm *.nav *.glo *.glsdefs *.ist *.vrb *.bcf *.run.xml *.glg *.gls"
 
 cat > Makefile << EOF
 all: main clean
