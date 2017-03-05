@@ -7,11 +7,26 @@
 ## located in svnignore.d. Each file in this directory
 ## represents a proplist. This script is to be called
 ## with the name of this proplist.
-##
-## Parametres:
-## -a (Append) appends the new ignores to the existing ones
-## [proplist ...]
 ##====================================================
+function usage() {
+  cat <<EOF
+Uage: $(basename $0) [-a] [proplist ...]
+
+Ignore a set of commonly unwanted files from svn version control.
+
+Options:
+  --append, -a    append proplist to current set of ignores
+  --help, -h      shows this message
+
+Proplists:
+  tex             tex files
+  java            java build files
+  cpp             qt project files
+  cs              visual studio project files
+  xc              xcode project files
+EOF
+}
+
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 config=$dir/svnignore.d
 
@@ -23,10 +38,10 @@ ignore_set=/dev/null
 while [ $# -gt 0 ]
 do
   case "$1" in
-    -a)
+    --append|-a)
     append=true;;
     -*)
-    echo >&2 "usage: $0 svnignore [-a] [proplist ...]"
+    usage
     exit 1;;
     *)
     if [ -e $config/$1 ]
