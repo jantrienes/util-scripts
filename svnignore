@@ -1,16 +1,14 @@
 #!/bin/bash
 # shellcheck disable=SC2086
-##====================================================
-## A simple script to handle svn ignore settings.
-##
-## The script reads svnignore properties from files
-## located in svnignore.d. Each file in this directory
-## represents a proplist. This script is to be called
-## with the name of this proplist.
-##====================================================
+#===================================================================================================
+# The script reads svnignore properties from files located in svnignore.d. Each file in this
+# directory represents a proplist. This script is to be called with the name of this proplist.
+#
+# Create a new file in svnignore.d in order to add a new proplist.
+#===================================================================================================
 function usage() {
   cat <<EOF
-Uage: $(basename $0) [-a] [proplist ...]
+Uage: $(basename $0) [-ah] [proplist ...]
 
 Ignore a set of commonly unwanted files from svn version control.
 
