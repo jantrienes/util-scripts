@@ -1,13 +1,21 @@
 #!/bin/bash
-##====================================================
-## Little helper script to start a docker jupyter
-## instance listening on a free port.
-##====================================================
-default_port=8888
+function usage() {
+  cat <<EOF
+Usage: $(basename "$0") [-h]
 
+Starts a docker jupyter/datascience-notebook with working directory mounted as volume.
+
+Options:
+  --help, -h      shows this message
+EOF
+}
+
+[ "$#" -gt 0 ] && usage && exit 0
+
+default_port=8888
 . nextfreeport
 nextfreeport $default_port
 
 docker run -e GRANT_SUDO=yes --user root -d -p $NEXT_FREE_PORT:$default_port \
   -v "$(pwd)":/home/jovyan/work jupyter/datascience-notebook && \
-  echo "docker jupyter running on http://localhost:$NEXT_FREE_PORT/"
+echo "docker jupyter running on http://localhost:$NEXT_FREE_PORT/"

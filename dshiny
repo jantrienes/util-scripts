@@ -1,12 +1,20 @@
 #!/bin/bash
-##====================================================
-## Little helper script to start a docker shiny
-## instance listening on a free port.
-##====================================================
-default_port=3838
+function usage() {
+  cat <<EOF
+Usage: $(basename "$0") [-h]
 
+Starts a docker rocker/shiny server with working directory mounted as volume.
+
+Options:
+  --help, -h      shows this message
+EOF
+}
+
+[ "$#" -gt 0 ] && usage && exit 0
+
+default_port=3838
 . nextfreeport
 nextfreeport $default_port
 
-docker run -d -p $NEXT_FREE_PORT:$default_port  -v "$(pwd)":/srv/shiny-server/  rocker/shiny
+docker run -d -p $NEXT_FREE_PORT:$default_port  -v "$(pwd)":/srv/shiny-server/ rocker/shiny
 echo "docker shiny running on http://localhost:$NEXT_FREE_PORT/"

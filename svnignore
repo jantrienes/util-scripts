@@ -8,7 +8,7 @@
 #===================================================================================================
 function usage() {
   cat <<EOF
-Uage: $(basename $0) [-ah] [proplist ...]
+Uage: $(basename "$0") [-ah] [proplist ...]
 
 Ignore a set of commonly unwanted files from svn version control.
 
