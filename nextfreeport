@@ -19,5 +19,5 @@ nextfreeport() {
     current_port=$((current_port + 1))
   done
 
-  export NEXT_FREE_PORT=$current_port
+  echo $current_port
 }

@@ -5,6 +5,8 @@ addons:
     - debian-sid    # Grab ShellCheck from the Debian repo
     packages:
     - shellcheck
+    - bats
 
 script:
  - shellcheck -x $(grep -rl '^#!/.*sh' ./*)
+ - bash -c 'cd tests && bats --tap *'
