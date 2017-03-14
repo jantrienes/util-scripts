@@ -8,6 +8,6 @@ default_port=8888
 . nextfreeport
 target_port=$(nextfreeport $default_port)
 
-docker run -e GRANT_SUDO=yes --user root -d -p $target_port:$default_port \
+docker run -e GRANT_SUDO=yes --user root -d -p "$target_port":$default_port \
   -v "$(pwd)":/home/jovyan/work jupyter/datascience-notebook && \
   echo "docker jupyter running on http://localhost:$target_port/"

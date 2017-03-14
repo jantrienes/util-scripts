@@ -8,5 +8,5 @@ default_port=3838
 . nextfreeport
 target_port=$(nextfreeport $default_port)
 
-docker run -d -p $target_port:$default_port  -v "$(pwd)":/srv/shiny-server/  rocker/shiny
+docker run -d -p "$target_port":$default_port  -v "$(pwd)":/srv/shiny-server/  rocker/shiny
 echo "docker shiny running on http://localhost:$target_port/"
