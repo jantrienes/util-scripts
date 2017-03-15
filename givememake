@@ -1,25 +1,39 @@
 #!/bin/bash
-##====================================================
-## This script creates makefiles to simplify the work
-## with latex documents.
-##
-## Parametres:
-## -$1 (name of main document) includes the name of latex
-## main document, otherwise 00-main.tex is used.
-##
-##====================================================
-nameOfPdf=${1%%.*}
-nameOfFile=${2%%.*}
+function usage() {
+  cat <<EOF
+Usage: $(basename "$0") [-h] [-i input] [-o output]
 
-if [ -z "$nameOfPdf" ];
-then
-	nameOfPdf="00-main"
-fi
+Produces a short makefile for compilation of LaTeX documents.
 
-if [ -z "$nameOfFile" ];
-then
-	nameOfFile="00-main"
-fi
+Options:
+  --input, -i input       name of tex input file
+  --output, -o output     name of pdf output file
+  --help, -h              shows this message
+EOF
+}
+
+tex_input="00-main"
+pdf_output="00-main"
+
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    --output|-o)
+      shift
+      pdf_output=$1
+      ;;
+    --input|-i)
+      shift
+      tex_input=$1
+      ;;
+    -*)
+      usage
+      exit 1
+      ;;
+  esac
+
+  shift
+done
 
 cleanupTargets="*.log *.lof *.lot *.toc *~ *.aux *.fls *.out *.bbl *.blg *.synctex.gz *.maf *.mtc \
 .mtc0 *.snm *.nav *.glo *.glsdefs *.ist *.vrb *.bcf *.run.xml *.glg *.gls *.acn *.acr *.alg"
@@ -28,14 +42,14 @@ cat > Makefile << EOF
 all: main clean
 
 main:
-	pdflatex $nameOfFile.tex
-	pdflatex $nameOfFile.tex
-	mv $nameOfFile.pdf $nameOfPdf.pdf
+	pdflatex $tex_input.tex
+	pdflatex $tex_input.tex
+	mv $tex_input.pdf $pdf_output.pdf
 
 clean:
 	rm -f $cleanupTargets
 
 cleanall: clean
-	rm -f $nameOfFile.pdf $nameOfPdf.pdf
+	rm -f $tex_input.pdf $pdf_output.pdf
 
 EOF
