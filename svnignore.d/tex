@@ -10,7 +10,6 @@
 *.blg
 *.bbl
 *.svt
-*.bbl
 *.upa
 *.upb
 main.pdf
