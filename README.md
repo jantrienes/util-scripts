@@ -16,3 +16,15 @@ Following is a brief overview of the scripts included. Each scripts reports abou
 
 ## Shellcheck
 All scripts are linted using [shellcheck](https://github.com/koalaman/shellcheck). There is also a travis job which automatically executes the linter.
+
+```sh
+shellcheck -x $(grep -rl '^#!/.*sh' ./*)
+```
+
+## Unit Tests
+Unit tests are written using [bats](https://github.com/sstephenson/bats) and can be executed with
+the following command:
+
+```sh
+bash -c 'cd tests && bats --tap *'
+```
