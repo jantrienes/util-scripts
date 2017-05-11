@@ -17,8 +17,22 @@ default_port=8888
 target_port=$(nextfreeport $default_port)
 token=$(date +%s | shasum | awk '{ print $1}')
 
+url="http://localhost:$target_port/?token=$token"
+
 docker run -e GRANT_SUDO=yes --user root -d -p "$target_port":$default_port \
   -v "$(pwd)":/home/jovyan/work jupyter/datascience-notebook \
   start-notebook.sh --NotebookApp.token="$token" && \
   echo -e "Jupyter notebook server is running. Open in browser:
-  http://localhost:$target_port/?token=$token"
+  $url"
+
+while ! curl -s "$url"
+do
+  ((c++)) && ((c==10)) && break
+  sleep 1
+done
+
+if [ "$(uname)" == "Darwin" ]; then
+    open "$url"
+elif [[ "$(uname)" == "Linux" ]]; then
+    xdg-open "$url"
+fi
