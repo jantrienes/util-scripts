@@ -12,15 +12,22 @@ EOF
 
 [ "$#" -gt 0 ] && usage && exit 0
 
+image_name='jupyter/datascience-notebook'
 default_port=8888
 . nextfreeport
 target_port=$(nextfreeport $default_port)
 token=$(date +%s | shasum | awk '{ print $1}')
-
 url="http://localhost:$target_port/?token=$token"
 
-docker run -e GRANT_SUDO=yes --user root -d -p "$target_port":$default_port \
-  -v "$(pwd)":/home/jovyan/work jupyter/datascience-notebook \
+if [ -f 'Dockerfile' ]
+then
+  image_name="$(whoami)/$(basename "$(pwd)")"
+  docker build -t "$image_name" . && \
+  echo "Using local Dockerfile as image $image_name." || exit
+fi
+
+docker run -e GRANT_SUDO=yes --user root -d -p "$target_port":"$default_port" \
+  -v "$(pwd)":/home/jovyan/work "$image_name" \
   start-notebook.sh --NotebookApp.token="$token" && \
   echo -e "Jupyter notebook server is running. Open in browser:
   $url"
