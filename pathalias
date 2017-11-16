@@ -26,21 +26,24 @@ EOF
 
 function add_alias() {
   name=$1
-  cmd="alias $name='cd $(pwd)'"
-  result=$(grep -c "alias $name" $bash_aliases)
-  if [ $result -eq 0 ];
-  then
-    echo "$cmd" >> $bash_aliases
-  else
-    echo "there is already an alias with the name $name"
+  if command -v $name &> /dev/null; then
+    echo "A command named '$name' already exist."
+    exit 1;
   fi;
+
+  alias_count=$(grep -c "alias $name" $bash_aliases)
+  if [ $alias_count -ne 0 ]; then
+    echo "Alias '$name' already exist."
+    exit 1;
+  fi;
+
+  echo "alias $name='cd $(pwd)'" >> $bash_aliases
 }
 
 function remove_alias() {
   name=$1
-  result=$(grep -c "alias $name" $bash_aliases)
-  if [ $result -ne 0 ];
-  then
+  alias_count=$(grep -c "alias $name" $bash_aliases)
+  if [ $alias_count -ne 0 ]; then
     sed '/alias '$name'/d' $bash_aliases > $bash_tmp
     mv $bash_tmp $bash_aliases
     echo "Please restart your shell."
