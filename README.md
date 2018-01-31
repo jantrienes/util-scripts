@@ -1,4 +1,4 @@
-# Utility Shell Scripts
+# Utility Shell Scripts [![Build Status](https://travis-ci.com/jantrienes/util-scripts.svg?token=UCnMzu7iMZD7cq6Bwsx2&branch=master)](https://travis-ci.com/jantrienes/util-scripts)
 A collection of utility shell scripts. Mostly used under MacOS.
 
 ## Overview
