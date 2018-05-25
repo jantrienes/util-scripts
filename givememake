@@ -36,7 +36,7 @@ do
 done
 
 cleanupTargets="*.log *.lof *.lot *.toc *~ *.aux *.fls *.out *.bbl *.blg *.synctex.gz *.maf *.mtc \
-.mtc0 *.snm *.nav *.glo *.glsdefs *.ist *.vrb *.bcf *.run.xml *.glg *.gls *.acn *.acr *.alg"
+.mtc0 *.snm *.nav *.glo *.glsdefs *.ist *.vrb *.bcf *.run.xml *.glg *.gls *.acn *.acr *.alg *.lol"
 
 cat > Makefile << EOF
 all: main clean
