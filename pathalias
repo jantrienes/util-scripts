@@ -4,8 +4,8 @@
 # The script stores aliases in a user specific directory. In order to automatically load them, add
 # the following to your '/etc/bashrc' (or os equivalent):
 #
-#	if [ -f ~/.bash_aliases ]; then
-#   . ~/.bash_aliases
+#	if [ -f ~/.pathalias ]; then
+#   . ~/.pathalias
 #	fi
 #
 # The script always uses the current working directory as the new alias target.
@@ -50,7 +50,7 @@ function remove_alias() {
   fi;
 }
 
-bash_aliases="${HOME}/.bash_aliases"
+bash_aliases="${HOME}/.pathalias"
 bash_tmp="${HOME}/.bash_tmp"
 case $1 in
   --add|-a)
@@ -72,5 +72,5 @@ case $1 in
 esac
 
 sort $bash_aliases -o $bash_aliases
-# shellcheck disable=SC2059,SC1091
-source /etc/bashrc
+# shellcheck source=/dev/null
+source $bash_aliases
