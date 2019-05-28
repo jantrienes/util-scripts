@@ -19,7 +19,7 @@ invoked with the `--help` flag.
 All scripts are linted using [shellcheck](https://github.com/koalaman/shellcheck). There is also a travis job which automatically executes the linter.
 
 ```sh
-shellcheck -x $(grep -rl '^#!/.*sh' ./*)
+make lint
 ```
 
 ## Unit Tests
@@ -27,5 +27,5 @@ Unit tests are written using [bats](https://github.com/sstephenson/bats) and can
 the following command:
 
 ```sh
-bash -c 'cd tests && bats --tap *'
+make test
 ```
