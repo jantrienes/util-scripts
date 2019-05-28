@@ -2,7 +2,8 @@
 A collection of utility shell scripts. Mostly used under MacOS.
 
 ## Overview
-Following is a brief overview of the scripts included. Each scripts reports about its usage when it is invoked with the `--help` option.
+Following is a brief overview of the scripts included. Each scripts reports about its usage when
+invoked with the `--help` flag.
 
 | Script          | Description                                                                                                                                   |
 |:----------------|:----------------------------------------------------------------------------------------------------------------------------------------------|
